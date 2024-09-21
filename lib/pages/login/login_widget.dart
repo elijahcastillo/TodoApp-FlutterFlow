@@ -113,7 +113,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                     letterSpacing: 0.0,
                                   ),
                               indicatorColor:
-                                  FlutterFlowTheme.of(context).primary,
+                                  FlutterFlowTheme.of(context).secondary,
                               tabs: const [
                                 Tab(
                                   text: 'Login',
