@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -784,6 +785,21 @@ class _LoginWidgetState extends State<LoginWidget>
                         ],
                       ),
                     ),
+                    if (_model.showEmailPopup == true)
+                      Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Text(
+                          'Check Email for Welcome message!',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .override(
+                                fontFamily: 'Rubik',
+                                color: const Color(0xFF5BD672),
+                                letterSpacing: 0.0,
+                              ),
+                        ),
+                      ),
                     Stack(
                       children: [
                         if (_model.tabBarCurrentIndex == 1)
@@ -826,6 +842,18 @@ class _LoginWidgetState extends State<LoginWidget>
                                     ),
                                     createdTime: getCurrentTimestamp,
                                   ));
+
+                              _model.showEmailPopup = true;
+                              safeSetState(() {});
+                              await SendWelcomeEmailCall.call(
+                                to: _model.signEmailTextController.text,
+                                subject: 'Welcome to Elijah\'s Todo App',
+                                text:
+                                    'Thank you for signing up for this todo app, please enjoy',
+                              );
+
+                              await Future.delayed(
+                                  const Duration(milliseconds: 2000));
 
                               context.goNamedAuth(
                                   'onboarding', context.mounted);
